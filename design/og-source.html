@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'Inter Tight';
+        font-style: normal;
+        font-weight: 100 900;
+        src: url('../public/fonts/inter-tight-latin-ext.woff2')
+          format('woff2');
+      }
+      @font-face {
+        font-family: 'Inter Tight';
+        font-style: normal;
+        font-weight: 100 900;
+        src: url('../public/fonts/inter-tight-latin.woff2')
+          format('woff2');
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        background: #15131b;
+        font-family: 'Inter Tight', sans-serif;
+        color: #fff;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 88px;
+      }
+      /* Two soft brand glows, echoing the gradients used on the site footer. */
+      .glow-a,
+      .glow-b {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        pointer-events: none;
+      }
+      .glow-a {
+        width: 560px;
+        height: 560px;
+        right: -130px;
+        top: -190px;
+        background: rgba(138, 99, 210, 0.55);
+      }
+      .glow-b {
+        width: 460px;
+        height: 460px;
+        left: -170px;
+        bottom: -210px;
+        background: rgba(99, 130, 210, 0.32);
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        margin-bottom: 40px;
+      }
+      .row svg {
+        height: 82px;
+        width: auto;
+      }
+      .brand {
+        font-size: 60px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      h1 {
+        font-size: 76px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+        max-width: 900px;
+        position: relative;
+      }
+      h1 em {
+        font-style: normal;
+        color: #b795ee;
+      }
+      p {
+        margin-top: 34px;
+        font-size: 31px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.62);
+        letter-spacing: -0.01em;
+      }
+      .rule {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 10px;
+        background: linear-gradient(90deg, #8a63d2 0%, #6382d2 55%, #63d2b7 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow-a"></div>
+    <div class="glow-b"></div>
+
+    <div class="row">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 120" fill="#8A63D2">
+        <path d="M120.0,60.0 A60,60 0 1 1 60.0,0.0 L60.0,30.0 A30,30 0 1 0 90.0,60.0 Z" />
+        <path d="M60.0,60.0 A60,60 0 1 1 120.0,120.0 L120.0,90.0 A30,30 0 1 0 90.0,60.0 Z" />
+      </svg>
+      <span class="brand">Octaglot</span>
+    </div>
+
+    <h1>İngilizceyi <em>Türkçe anlatımla</em> öğren.</h1>
+    <p>A1’den B1’e 40 ünite - macOS ve Windows için ücretsiz</p>
+
+    <div class="rule"></div>
+  </body>
+</html>
