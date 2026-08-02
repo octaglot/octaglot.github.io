@@ -72,10 +72,10 @@ const schema = {
 
   <body>
     <script is:inline>
-      /* Şablonun koyu teması .dark sınıfıyla çalışıyor ve main.js bunu
-         localStorage'daki "color-theme" anahtarından okuyor. Sınıfı burada
-         kaldırmak yetmiyor — main.js sonra çalışıp geri koyuyor. Bu yüzden
-         tercihi anahtarın kendisine yazıyoruz. */
+      /* The template's dark theme keys off the .dark class, which main.js
+         restores from the "color-theme" entry in localStorage. Removing the
+         class here is not enough because main.js runs later and puts it back,
+         so we write the preference into that key instead. */
       try { localStorage.setItem('color-theme', 'light'); } catch (e) {}
       document.documentElement.classList.remove('dark');
     </script>
