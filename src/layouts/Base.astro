@@ -11,13 +11,21 @@ export interface Props {
   description: string;
   image?: string;
   appSchema?: boolean;
+  faq?: { q: string; a: string }[];
 }
 
-const { title, description, image = '/screenshots/ders.png', appSchema = false } = Astro.props;
+const {
+  title,
+  description,
+  image = '/brand/og.png',
+  appSchema = false,
+  faq,
+} = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
-const fullTitle = title === 'Octaglot' ? title : `${title} · Octaglot`;
+/* Titles read "<page> - Octaglot"; the home page carries the brand alone. */
+const fullTitle = title === 'Octaglot' ? title : `${title} - Octaglot`;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -29,7 +37,19 @@ const schema = {
   url: Astro.site?.href,
   image: ogImage,
   inLanguage: 'tr',
+  /* Points at the rolling "latest" redirect so it never goes stale. */
+  downloadUrl: 'https://github.com/octaglot/octaglot/releases/latest',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' },
+};
+
+const faqSchema = faq && {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 };
 ---
 
@@ -53,21 +73,52 @@ const schema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Octaglot - Türkçe anlatımlı İngilizce öğrenme uygulaması" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* Self-hosted so the site makes no third-party request; see the privacy
+        page, which states exactly that. Italics are never used, so only the
+        upright variable font ships. */}
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/inter-tight-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <style is:inline>
+      @font-face {
+        font-family: 'Inter Tight';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/inter-tight-latin-ext.woff2') format('woff2');
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+          U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+          U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: 'Inter Tight';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/inter-tight-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+          U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+          U+FFFD;
+      }
+    </style>
     <link rel="stylesheet" href="/assets/main.css" />
 
     {appSchema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
   </head>
 
   <body>
