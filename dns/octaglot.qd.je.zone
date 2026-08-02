@@ -24,6 +24,5 @@ octaglot.qd.je.		300	IN	AAAA	2606:50c0:8003::153
 ; www -> org Pages host (GitHub redirects it to the apex custom domain)
 www			300	IN	CNAME	octaglot.github.io.
 
-; Domain verification, added once GitHub issues the token
-; (Settings > Pages > Verify domain). Prevents subdomain takeover.
-; _github-pages-challenge-octaglot	300	IN	TXT	"<token>"
+; Domain verification for the octaglot org (prevents subdomain takeover).
+_github-pages-challenge-octaglot	300	IN	TXT	"1e767378592deb5a40bd863842e27f"
