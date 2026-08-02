@@ -1,0 +1,29 @@
+; Zone file for octaglot.qd.je -- GitHub Pages
+; Import into the DigitalPlat DNS panel (BIND zone import).
+; SOA and apex NS records are intentionally omitted: the provider manages them
+; and importing them is rejected.
+;
+; Keep proxying disabled (DNS-only) if the panel offers it, otherwise the
+; GitHub Pages certificate cannot be issued.
+
+$ORIGIN octaglot.qd.je.
+$TTL 300
+
+; Apex -> GitHub Pages anycast IPv4
+octaglot.qd.je.		300	IN	A	185.199.108.153
+octaglot.qd.je.		300	IN	A	185.199.109.153
+octaglot.qd.je.		300	IN	A	185.199.110.153
+octaglot.qd.je.		300	IN	A	185.199.111.153
+
+; Apex -> GitHub Pages anycast IPv6
+octaglot.qd.je.		300	IN	AAAA	2606:50c0:8000::153
+octaglot.qd.je.		300	IN	AAAA	2606:50c0:8001::153
+octaglot.qd.je.		300	IN	AAAA	2606:50c0:8002::153
+octaglot.qd.je.		300	IN	AAAA	2606:50c0:8003::153
+
+; www -> org Pages host (GitHub redirects it to the apex custom domain)
+www			300	IN	CNAME	octaglot.github.io.
+
+; Domain verification, added once GitHub issues the token
+; (Settings > Pages > Verify domain). Prevents subdomain takeover.
+; _github-pages-challenge-octaglot	300	IN	TXT	"<token>"
