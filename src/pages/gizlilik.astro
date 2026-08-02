@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import gizlilikHtml from '../fragments/gizlilik.html?raw';
+---
+
+<Base
+  title="Gizlilik"
+  description="Octaglot hangi verileri tutuyor, neyi tutmuyor ve internete tam olarak ne zaman çıkıyor?"
+>
+  <Fragment set:html={gizlilikHtml} />
+</Base>

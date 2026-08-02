@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import kosullarHtml from '../fragments/kosullar.html?raw';
+---
+
+<Base
+  title="Koşullar"
+  description="Octaglot'u kullanma koşulları, içerik lisansları ve resmî indirme adresleri."
+>
+  <Fragment set:html={kosullarHtml} />
+</Base>
