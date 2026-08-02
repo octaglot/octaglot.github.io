@@ -1,12 +1,69 @@
 ---
 import Base from '../layouts/Base.astro';
 import html from '../fragments/nasil-calisir.html?raw';
+
+/* Single source of truth: this array renders the visible section below and the
+   FAQPage structured data emitted by Base.astro. */
+const faq = [
+  {
+    q: 'Octaglot ücretli mi?',
+    a: 'Hayır. Uygulama tamamen ücretsiz; abonelik, uygulama içi satın alma ve reklam yok.',
+  },
+  {
+    q: 'Hesap açmam gerekiyor mu?',
+    a: 'Hayır. Kayıt, e-posta ya da parola istenmiyor. Uygulamayı kurduğun an ilk derse başlayabilirsin.',
+  },
+  {
+    q: 'İnternet olmadan çalışır mı?',
+    a: 'Dersler, kelimeler ve alıştırmaların tamamı çevrimdışı çalışır; içerik uygulamayla birlikte geliyor. Tek istisna telaffuz sesi.',
+  },
+  {
+    q: 'Telaffuz için neden internet gerekiyor?',
+    a: 'Ses, düğmeye bastığın anda Google’ın metin okuma servisinden alınıyor. Böylece binlerce ses dosyası uygulamanın içinde taşınmıyor ve kurulum küçük kalıyor. Telaffuza basmazsan uygulama hiçbir ağ isteği yapmaz.',
+  },
+  {
+    q: 'İlerlemem nerede saklanıyor?',
+    a: 'Yalnızca kendi cihazında. Sunucumuz olmadığı için verilerin hiçbir yere gönderilmiyor. Uygulamayı kaldırırsan ilerleme de silinir ve geri getirilemez.',
+  },
+  {
+    q: 'macOS ve Windows sürümleri arasında fark var mı?',
+    a: 'Yok. İki sürüm de aynı müfredatı, aynı alıştırma tiplerini ve aynı modları içerir.',
+  },
+  {
+    q: 'Hangi seviyeye kadar götürüyor?',
+    a: 'A1’den B1’e. 40 ünite, 160 ders, 720 kelime ve 4160 örnek cümle var.',
+  },
+  {
+    q: 'İlk açılışta neden güvenlik uyarısı çıkıyor?',
+    a: 'Kurulum dosyaları dijital olarak imzalanmadığı için macOS ve Windows tanımadığı yayıncıyı uyarıyor. macOS’ta uygulamaya sağ tıklayıp Aç, Windows’ta “Daha fazla bilgi” altından “Yine de çalıştır” demen yeterli.',
+  },
+];
 ---
 
 <Base
   title="Nasıl çalışır"
-  description="İndirmekten ilk derse beş adım: kurulum, günlük hedef, ilk ders, tekrarlar ve seri. Octaglot'un çalışma biçimi."
-  image="/screenshots/harita.png"
+  description="Kurulumdan ilk derse: günlük hedef, alıştırmalar, aralıklı tekrar ve ders dışı modlar. Octaglot nasıl çalışır, sık sorulan sorularla."
+  faq={faq}
 >
   <Fragment set:html={html} />
+
+  <section class="pb-28">
+    <div class="main-container">
+      <div class="mx-auto space-y-10" style="max-width: 820px">
+        <div class="space-y-3 text-center">
+          <h2>Sık sorulanlar</h2>
+        </div>
+        <div class="space-y-8">
+          {
+            faq.map(({ q, a }) => (
+              <div class="space-y-2">
+                <h3 class="text-heading-6">{q}</h3>
+                <p class="text-tagline-2">{a}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
