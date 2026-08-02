@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import hakkindaHtml from '../fragments/hakkinda.html?raw';
+---
+
+<Base
+  title="Hakkında"
+  description="Octaglot neden yapıldı, müfredat nasıl kuruldu ve uygulama tam olarak ne yapıyor?"
+  image="/screenshots/alistirma.png"
+>
+  <Fragment set:html={hakkindaHtml} />
+</Base>

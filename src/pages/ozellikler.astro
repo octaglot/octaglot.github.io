@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import html from '../fragments/ozellikler.html?raw';
+---
+
+<Base
+  title="Özellikler"
+  description="Sekiz alıştırma tipi, doğal telaffuz, aralıklı tekrar ve günlük hedef. Octaglot’un İngilizce öğrenmek için sunduğu her şey."
+  image="/screenshots/alistirma.png"
+>
+  <Fragment set:html={html} />
+</Base>

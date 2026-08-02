@@ -1,0 +1,89 @@
+---
+/* Şablonun (Nexsas / app-builder) kabuğu. Markup'a dokunmamak için header ve
+   footer ham HTML parçası olarak bağlanıyor — Astro'nun süslü parantezleri
+   ifade sanmasını ve Tailwind sınıflarının bozulmasını böyle engelliyoruz.
+   Parçalar src/fragments/ altında; şablon güncellenirse oradan yeniden üretilir. */
+import headerHtml from '../fragments/header.html?raw';
+import footerHtml from '../fragments/footer.html?raw';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  appSchema?: boolean;
+}
+
+const { title, description, image = '/screenshots/ders.png', appSchema = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const fullTitle = title === 'Octaglot' ? title : `${title} · Octaglot`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Octaglot',
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'macOS, Windows',
+  description,
+  url: Astro.site?.href,
+  image: ogImage,
+  inLanguage: 'tr',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' },
+};
+---
+
+<!doctype html>
+<html lang="tr" class="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#9b60be" />
+
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/icon-1024.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Octaglot" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/main.css" />
+
+    {appSchema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+
+  <body>
+    <script is:inline>
+      /* Şablonun koyu teması .dark sınıfıyla çalışıyor ve main.js bunu
+         localStorage'daki "color-theme" anahtarından okuyor. Sınıfı burada
+         kaldırmak yetmiyor — main.js sonra çalışıp geri koyuyor. Bu yüzden
+         tercihi anahtarın kendisine yazıyoruz. */
+      try { localStorage.setItem('color-theme', 'light'); } catch (e) {}
+      document.documentElement.classList.remove('dark');
+    </script>
+    <Fragment set:html={headerHtml} />
+    <main>
+      <slot />
+    </main>
+    <Fragment set:html={footerHtml} />
+    <script is:inline src="/assets/main.js"></script>
+  </body>
+</html>

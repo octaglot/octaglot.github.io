@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import html from '../fragments/ekranlar.html?raw';
+---
+
+<Base
+  title="Ekranlar"
+  description="Octaglot’un ders haritası, kelime kartları, alıştırma ekranları ve ayarları — baştan aşağı uygulamanın içi."
+  image="/screenshots/harita.png"
+>
+  <Fragment set:html={html} />
+</Base>

@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import indirHtml from '../fragments/indir.html?raw';
+---
+
+<Base
+  title="İndir"
+  description="Octaglot’u macOS için ücretsiz indir. Hesap açmaya, kart bilgisi girmeye gerek yok. Windows sürümü yakında."
+  image="/screenshots/harita.png"
+>
+  <Fragment set:html={indirHtml} />
+</Base>

@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import html from '../fragments/nasil-calisir.html?raw';
+---
+
+<Base
+  title="Nasıl çalışır"
+  description="İndirmekten ilk derse beş adım: kurulum, günlük hedef, ilk ders, tekrarlar ve seri. Octaglot'un çalışma biçimi."
+  image="/screenshots/harita.png"
+>
+  <Fragment set:html={html} />
+</Base>
