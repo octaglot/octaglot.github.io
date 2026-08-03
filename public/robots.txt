@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://octaglot.qd.je/sitemap-index.xml
+Sitemap: https://octaglot.github.io/sitemap-index.xml
